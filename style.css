@@ -3,7 +3,9 @@ body {
 }
 
 h1 {
-    color: darkblue;
+    color: #a1a1e0;
+    font-family: Helvetica, sans-serif;
+    font-size: 4rem;
 }
 
 #canvas {
