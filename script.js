@@ -3,10 +3,15 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 450;
 
+// ---------- IMAGES ----------
+
 const image1 = new Image();
 image1.src = "images/futureworks.png";
 
-// This event listener turns
+// ---------- EFFECT 1 ----------
+// --- GRAYSCALE IMAGE FILTER ---
+
+// This event listener applies a grayscale filter to image1
 image1.addEventListener("load", function () {
   ctx.drawImage(image1, 0, 0, canvas.width, canvas.height); // If the image is the same size as the canvas, the drawImage function only needs the first two arguments.
   const scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
