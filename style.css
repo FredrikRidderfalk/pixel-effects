@@ -44,6 +44,16 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+#canvas4 {
+    border: 1px solid rgb(78, 0, 123);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+}
+
 #canvas11 {
     border: 2px solid #fff;
     top: 50%;
