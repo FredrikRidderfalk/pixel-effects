@@ -1,5 +1,5 @@
 // ---------- EFFECT 2 ----------
-// ------- GRAYSCALE RAIN -------
+// ------- PARTICLE SNOW --------
 
 const image2 = new Image();
 // image2.src = "images/bread.png";
@@ -16,15 +16,15 @@ image2.addEventListener("load", function () {
   ctx.drawImage(image2, 0, 0, canvas.width, canvas.height);
 
   let particlesArray = [];
-  const numberOfParticles = 5000;
+  const numberOfParticles = 4000; // try changing this value
 
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = 0;
       this.speed = 0;
-      this.velocity = Math.random() * 3.5;
-      this.size = Math.random() * 1.5 + 1;
+      this.velocity = Math.random() * 1.5; // try changing this value
+      this.size = Math.random() * 1.5 + 1; // try changing this value
     }
     update() {
       this.y += this.velocity;
@@ -51,6 +51,7 @@ image2.addEventListener("load", function () {
     ctx.globalAlpha = 0.25;
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // ctx.globalAlpha = 1; // adding this line and setting the value to 1 sets the brightness of the image as well as the particles to maximum
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
       particlesArray[i].draw();
