@@ -22,14 +22,14 @@ myImage.addEventListener("load", function () {
 
   let mappedImage = []; // the goal of this array is to hold a brightness value of each pixel in the image, along with its x and y coordinates so that we can compare it to the x and y coordinates of each particle, and adjust their movement speed accordingly
   for (let y = 0; y < canvas.height; y++) {
-    let row = [];
+    let row = []; // this array holds the pixel data of each pixel in a row, and we have canvas.height number of rows
     for (let x = 0; x < canvas.width; x++) {
-      const red = pixels.data[y * 4 * pixels.width + x * 4];
+      const red = pixels.data[y * 4 * pixels.width + x * 4]; // this is just one of many valid formulas to get every fourth value from the image data. Red is the first value, then green, then blue, then alpha.
       const green = pixels.data[y * 4 * pixels.width + x * 4 + 1];
       const blue = pixels.data[y * 4 * pixels.width + x * 4 + 2];
       const brightness = calculateRelativeBrightness(red, green, blue);
-      const cell = [(cellBrightness = brightness)];
-      row.push(cell);
+      const cell = [(cellBrightness = brightness)]; // each cell holds relative brightness value for individual pixels in the image
+      row.push(cell); // each cell array represents one pixel in the image
     }
     mappedImage.push(row);
   }
