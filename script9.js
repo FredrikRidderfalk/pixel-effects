@@ -8,6 +8,7 @@ canvas.width = window.innerWidth;
 canvas.width = window.innerHeight;
 
 let particlesArray = [];
+const numberOfParticles = 2000;
 
 // Handle mouse
 const mouse = {
@@ -52,13 +53,10 @@ class Particle {
 function init() {
   // its job is to take the particle class we just created and call it many times to fill the array with randomized particle objects
   particlesArray = [];
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < numberOfParticles; i++) {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height;
     particlesArray.push(new Particle(x, y));
-
-    // particlesArray.push(new Particle(50, 50));
-    // particlesArray.push(new Particle(90, 30));
   }
 }
 init();
