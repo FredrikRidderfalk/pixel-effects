@@ -1,6 +1,7 @@
 // ---------- EFFECT 4 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
 // ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
+// Here we make colored pixel rain, and we can change the angle of it
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
