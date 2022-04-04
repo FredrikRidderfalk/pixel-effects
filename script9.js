@@ -32,7 +32,7 @@ myImage.addEventListener("load", function () {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // after loading the image, we may not need it anymore, and can delete the original image with clearRect()
 
   let particlesArray = [];
-  const numberOfParticles = 2000;
+  const numberOfParticles = 5000;
 
   let mappedImage = []; // the goal of this array is to hold a brightness value of each pixel in the image, along with its x and y coordinates so that we can compare it to the x and y coordinates of each particle, and adjust their movement speed accordingly
   for (let y = 0; y < canvas.height; y++) {
@@ -109,12 +109,13 @@ myImage.addEventListener("load", function () {
         mappedImage[this.position1][this.position2]
       ) {
         ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
-        ctx.strokeStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
+        ctx.strokeStyle = mappedImage[this.position1][this.position2][1]; // strokeStyle is for enabling rectangles to be drawn
       } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
-      //   ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       //   ctx.strokeRect(this.x, this.y, this.size * 5, this.size * 5); // with this we draw in rectangles instead. We need to set strokeStyle above. Multiply this.size with a value to set the size of the rectangles
-      ctx.font = "40px Arial"; // sets the size and font of the fillText letters
-      ctx.fillText(this.letter, this.x, this.y); // draw in letters/words instead. Hardcode a string, or use an array like letter
+      //   ctx.font = "40px Arial"; // sets the size and font of the fillText letters
+      //   ctx.fillText(this.letter, this.x, this.y); // draw in letters/words instead. Hardcode a string, or use an array like letter
       ctx.fill();
     }
   }
