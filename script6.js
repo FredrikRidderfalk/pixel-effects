@@ -102,7 +102,7 @@ myImage.addEventListener("load", function () {
     draw() {
       ctx.beginPath();
       //   ctx.fillStyle = "white";
-      ctx.fillStyle = gradient1;
+      ctx.fillStyle = gradient2;
       //   ctx.fillStyle = gradient2;
       //   if (
       //     mappedImage[this.position1] &&
