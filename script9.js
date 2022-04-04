@@ -1,7 +1,7 @@
 // ---------- EFFECT 5 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
 // ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
-// Here we create fillText to draw particles using strings (letters/words). We may want to alter the number of particles here, as well as the opacity of the particles. We can set globalAlpha to 1 to do this.
+// Here we make the particles come in waves and periodically create splash movement. We will use the variable 'switcher'.
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
