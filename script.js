@@ -20,7 +20,7 @@ image1.addEventListener("load", function () {
   for (let i = 0; i < scannedData.length; i += 4) {
     const total = scannedData[i] + scannedData[i + 1] + scannedData[i + 2];
     const averageColorValue = total / 3;
-    scannedData[i] = averageColorValue; //add + 154 to averageColorValue to change the color it will have to bright red.
+    scannedData[i] = averageColorValue; //add i.e. + 154 to averageColorValue to change the color it will have to bright red.
     scannedData[i + 1] = averageColorValue;
     scannedData[i + 2] = averageColorValue;
   }

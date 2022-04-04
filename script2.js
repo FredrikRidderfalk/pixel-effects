@@ -51,7 +51,7 @@ image2.addEventListener("load", function () {
     ctx.globalAlpha = 0.25;
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // ctx.globalAlpha = 1; // adding this line and setting the value to 1 sets the brightness of the image as well as the particles to maximum
+    ctx.globalAlpha = 1; // adding this line and setting the value to 1 white the first value is set to 0 sets the brightness of the image as well as the particles to maximum
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
       particlesArray[i].draw();

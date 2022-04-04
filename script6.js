@@ -1,7 +1,7 @@
 // ---------- EFFECT 5 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
 // ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
-// Here we create arc paths for the particles with some trigonometry
+// Here we create our own color spectrum, gradient1, and use it for our fillStyle.
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
@@ -10,10 +10,24 @@ myImage.src =
 
 // This event listener applies a snowy rain to myImage
 myImage.addEventListener("load", function () {
-  const canvas = document.querySelector("#canvas5"); // this is the element that houses our canvas
+  const canvas = document.querySelector("#canvas6"); // this is the element that houses our canvas
   const ctx = canvas.getContext("2d"); // this is our canvas
   canvas.width = 1280; // this needs to match the width in the css
   canvas.height = 720; // this needs to match the height in the css
+
+  // WE CAN MAKE OUR OWN COLOR SPECTRUM (use it as fillStyle in the draw() function)
+  const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); // change these coordinates to change the angle of the spectrum (i.e. (0, 0, 0, canvas.height))
+  gradient1.addColorStop(0.2, "pink");
+  gradient1.addColorStop(0.3, "red");
+  gradient1.addColorStop(0.4, "orange");
+  gradient1.addColorStop(0.5, "yellow");
+  gradient1.addColorStop(0.6, "green");
+  gradient1.addColorStop(0.7, "turquoise");
+  gradient1.addColorStop(0.8, "violet");
+
+  const gradient2 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); // change these coordinates to change the angle of the spectrum (i.e. (0, 0, 0, canvas.height))
+  gradient2.addColorStop(0.2, "turquoise");
+  gradient2.addColorStop(0.8, "violet");
 
   ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height); // Here, on the first page load, we draw the image on our canvas using the built-in HTML canvas drawImage method
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height); // Here we call getImageData on it (ctx, which is the canvas) to get information about all its pixels, and we save it to our custom pixels variable
@@ -71,6 +85,7 @@ myImage.addEventListener("load", function () {
       } // This if statement makes sure that we only assign a speed if a particle is within the canvas area
       let movement = 2.55 - this.speed + this.velocity; // relative brightness is a number between 0 and 2.55. We want the dark particles with a value close to 0 move really fast, we take the maximum value of 2.55 and subtract this.speed. We also don't want particles with the same color to move exactly the same speed, so we randomize it somewhat by adding this.velocity.
       this.angle += this.speed / 20; // set it to ++ (+=1) for a vibration effect. The lower the value, the more clear we can see trailing circles being drawn on the canvas. 0.2 draws clear circles. We can also set it to this.speed for the speed to vary depending on how bright the underlying background is.
+      this.size = this.speed * 1.5; // we can use this if we want particles to be of a different size depending to their speed, i.e. larger in brighter areas
 
       //   this.y += this.velocity; // this creates snow/rain particles that doesn't interact with each other
       this.y += movement + Math.sin(this.angle) * 3; // change this for more/less wiggle effect
@@ -87,22 +102,26 @@ myImage.addEventListener("load", function () {
     draw() {
       ctx.beginPath();
       //   ctx.fillStyle = "white";
-      if (
-        mappedImage[this.position1] &&
-        mappedImage[this.position1][this.position2]
-      ) {
-        ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color. Comment out and use "white" instead if desiring grayscale
-      } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
+      ctx.fillStyle = gradient1;
+      //   ctx.fillStyle = gradient2;
+      //   if (
+      //     mappedImage[this.position1] &&
+      //     mappedImage[this.position1][this.position2]
+      //   ) {
+      //     ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
+      //   } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
     }
   }
+
   function init() {
     for (let i = 0; i < numberOfParticles; i++) {
       particlesArray.push(new Particle());
     }
   }
   init();
+
   function animate() {
     //ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height); // comment this out to make the image invisible, which creates a wonderful effect together with the particle waterfall effect
 

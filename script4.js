@@ -98,7 +98,7 @@ myImage.addEventListener("load", function () {
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.globalAlpha = 0.2; // if we add this here with a new value, we change the fade-in trails after the image has been drawn
+    ctx.globalAlpha = 1; // if we add this here with a new value, we change the fade-in trails after the image has been drawn
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
       ctx.globalAlpha = particlesArray[i].speed * 0.5; // Change the value 0.5 to change the speed. Comment this out to maintain a more consistent waterfall effect over the whole image
