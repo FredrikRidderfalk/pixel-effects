@@ -1,7 +1,7 @@
 // ---------- EFFECT 5 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
 // ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
-// Here we create strokeStyle and use it to draw rectangles instead of circles
+// Here we create fillText to draw particles using strings (letters/words). We may want to alter the number of particles here, as well as the opacity of the particles. We can set globalAlpha to 1 to do this.
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
@@ -25,12 +25,14 @@ myImage.addEventListener("load", function () {
   gradient1.addColorStop(0.7, "turquoise");
   gradient1.addColorStop(0.8, "violet");
 
+  const letters = ["J", ["I"], ["N"], ["X"]];
+
   ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height); // Here, on the first page load, we draw the image on our canvas using the built-in HTML canvas drawImage method
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height); // Here we call getImageData on it (ctx, which is the canvas) to get information about all its pixels, and we save it to our custom pixels variable
   ctx.clearRect(0, 0, canvas.width, canvas.height); // after loading the image, we may not need it anymore, and can delete the original image with clearRect()
 
   let particlesArray = [];
-  const numberOfParticles = 5000;
+  const numberOfParticles = 2000;
 
   let mappedImage = []; // the goal of this array is to hold a brightness value of each pixel in the image, along with its x and y coordinates so that we can compare it to the x and y coordinates of each particle, and adjust their movement speed accordingly
   for (let y = 0; y < canvas.height; y++) {
@@ -68,6 +70,9 @@ myImage.addEventListener("load", function () {
       this.position1 = Math.floor(this.y); // this is because array indexes need to be integers, not floats
       this.position2 = Math.floor(this.x); // this is because array indexes need to be integers, not floats
       this.angle = 0; // We want each particle to fluctuate depending on the brightness of the underlying area in the image
+      this.letter = letters[Math.floor(Math.random() * letters.length)];
+
+      this.random = Math.random(); // this returns a small random number between 0 and 1 and can be used for any if statements, i.e. for only drawing 50% of the particles as letters, we do an if(this.random < 0.5) {}
     }
     update() {
       // this runs once every frame
@@ -107,8 +112,9 @@ myImage.addEventListener("load", function () {
         ctx.strokeStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
       } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
       //   ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.strokeRect(this.x, this.y, this.size * 5, this.size * 5); // with this we draw in rectangles instead. We need to set strokeStyle above. Multiply this.size with a value to set the size of the rectangles
-      //   ctx.fillText("Draw", this.x, this.y); // draw in letters/words instead
+      //   ctx.strokeRect(this.x, this.y, this.size * 5, this.size * 5); // with this we draw in rectangles instead. We need to set strokeStyle above. Multiply this.size with a value to set the size of the rectangles
+      ctx.font = "40px Arial";
+      ctx.fillText(this.letter, this.x, this.y); // draw in letters/words instead. Hardcode a string, or use an array like letter
       ctx.fill();
     }
   }
@@ -132,7 +138,8 @@ myImage.addEventListener("load", function () {
 
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
-      ctx.globalAlpha = particlesArray[i].speed * 0.5; // Change the value 0.5 to change the speed. Comment this out to maintain a more consistent waterfall effect over the whole image
+      //   ctx.globalAlpha = particlesArray[i].speed * 0.5; // Change the value 0.5 to change the speed. Comment this out to maintain a more consistent waterfall effect over the whole image
+      ctx.globalAlpha = 1;
       particlesArray[i].draw();
     }
     requestAnimationFrame(animate);
