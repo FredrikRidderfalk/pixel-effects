@@ -1,5 +1,5 @@
 // ----- MOLECULAR TEXT -----
-// Here we improve our molecular text.
+// Here we bedazzle our molecular text with connecting lines, much like the library particle.js does.
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
@@ -107,6 +107,30 @@ function animate() {
     particlesArray[i].draw();
     particlesArray[i].update();
   }
+  connect();
   requestAnimationFrame(animate);
 }
 animate();
+
+function connect() {
+  let opacityValue = 1;
+  // this function is all we need to replicate the particle.js library with vanilla JavaScript
+  for (let a = 0; a < particlesArray.length; a++) {
+    for (let b = a; b < particlesArray.length; b++) {
+      let dx = particlesArray[a].x - particlesArray[b].x;
+      let dy = particlesArray[a].y - particlesArray[b].y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      let maxConnectedDistance = 25; // change this value if more and longer connected lines between the particles is desired
+
+      if (distance < maxConnectedDistance) {
+        opacityValue = 1 - distance / maxConnectedDistance;
+        ctx.strokeStyle = `rgba(0, 0, 119, ${opacityValue})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
