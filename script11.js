@@ -1,5 +1,5 @@
 // ----- PARTICLE TRANSLATE ON MOUSEMOVE -----
-// Here we create a bunch of particles on a canvas and make them move towards or away from the cursor when the cursor gets close. Attraction or repulsion on mousemove.
+// Here we create attraction or repulsion on mousemove, and make the particles return to their original positions after they have moved.
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
@@ -66,6 +66,16 @@ class Particle {
       this.y -= directionY; // this will make the particles move away the cursor, dynamically
     } else {
       //   this.size = 3;
+      if (this.x !== this.baseX) {
+        // this if statement checks if a position of a particle is the same as its starting position, baseX. If it isn't, it will move back towards its starting position.
+        let dx = this.x - this.baseX;
+        this.x -= dx / 10; // change the value here to alter the speed at which the particles return to their starting positions
+      }
+      if (this.y !== this.baseY) {
+        // this if statement checks if a position of a particle is the same as its starting position, baseY. If it isn't, it will move back towards its starting position.
+        let dy = this.y - this.baseY;
+        this.y -= dy / 10; // change the value here to alter the speed at which the particles return to their starting positions
+      }
     }
   }
 }
