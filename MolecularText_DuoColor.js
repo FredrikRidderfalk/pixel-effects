@@ -1,5 +1,5 @@
 // ----- MOLECULAR TEXT -----
-// Here we bedazzle our molecular text with connecting lines, much like the library particle.js does.
+// Here we bedazzle our molecular text with connecting lines, much like the library particle.js does. We add color to our connecting lines.
 
 const canvas = document.querySelector("#canvasMolecularText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
@@ -9,7 +9,7 @@ canvas.height = window.innerHeight;
 let particlesArray = [];
 let adjustX = 15; // use this to move the text around
 let adjustY = 24; // use this to move the text around
-const numberOfParticles = 1000;
+// const numberOfParticles = 1000;
 
 // Handle mouse
 const mouse = {
@@ -55,7 +55,7 @@ class Particle {
     let forceDirectionX = dx / distance; // equation for calculating distance between particle and cursor
     let forceDirectionY = dy / distance;
     let maxDistance = mouse.radius;
-    let force = (maxDistance - distance) / maxDistance; // this calculation takes any range of numbers and converts it to a range between 0 and 1. So here it will convert values between 0 and our maxDistance into a range of 0 to 1. This so that we can multiply the values inside the if statement below by this number and get particles to slow down as the distance between them and the mouse increases until the reach a speed of 0. As they reach the outer radius of the interaction circle radius around the mouse.
+    let force = (maxDistance - distance) / maxDistance; // this calculation takes any range of numbers and converts it to a range between 0 and 1. So here it will convert values between 0 and our maxDistance into a range of 0 to 1. This so that we can multiply the values inside the if statement below by this number and get particles to slow down as the distance between them and the mouse increases until they reach a speed of 0 as they reach the outer radius of the interaction circle radius around the mouse.
     let directionX = forceDirectionX * force * this.density;
     let directionY = forceDirectionY * force * this.density;
     if (distance < mouse.radius) {
@@ -124,7 +124,11 @@ function connect() {
 
       if (distance < maxConnectedDistance) {
         opacityValue = 1 - distance / maxConnectedDistance;
-        ctx.strokeStyle = `rgba(0, 0, 119, ${opacityValue})`;
+        if (distance < maxConnectedDistance - 10) {
+          ctx.strokeStyle = `rgba(0, 0, 119, ${opacityValue})`;
+        } else {
+          ctx.strokeStyle = `rgba(190, 80, 119, ${opacityValue})`;
+        }
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
