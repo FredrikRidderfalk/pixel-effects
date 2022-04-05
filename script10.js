@@ -20,7 +20,7 @@ const mouse = {
 window.addEventListener("mousemove", function (event) {
   mouse.x = event.x;
   mouse.y = event.y;
-  //   console.log(mouse.x, mouse.y);
+  mouse.radius = 150; // it will be set equal to the radius inside the mouse object
 });
 
 ctx.fillStyle = "purple";
@@ -51,10 +51,22 @@ class Particle {
     let dx = mouse.x - this.x; // this calculates the distance between two points along the x-axis. mouse.x is where the cursor is, and this.x is a certain particle's position we want to calculate the distance to.
     let dy = mouse.y - this.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
-    if (distance < 100) {
-      this.size = 8;
+    let forceDirectionX = dx / distance; // equation for calculating distance between particle and cursor
+    let forceDirectionY = dy / distance;
+    let maxDistance = mouse.radius;
+    let force = (maxDistance - distance) / maxDistance; // this calculation takes any range of numbers and converts it to a range between 0 and 1. So here it will convert values between 0 and our maxDistance into a range of 0 to 1. This so that we can multiply the values inside the if statement below by this number and get particles to slow down as the distance between them and the mouse increases until the reach a speed of 0. As they reach the outer radius of the interaction circle radius around the mouse.
+    let directionX = forceDirectionX * force * this.density;
+    let directionY = forceDirectionY * force * this.density;
+    if (distance < mouse.radius) {
+      //   this.size = 8; // this will increase the size of the particles near the cursor
+      //   this.x += forceDirectionX * 3; // this will make the particles move towards the cursor
+      //   this.y += forceDirectionY * 3; // this will make the particles move towards the cursor
+      //   this.x += directionX; // this will make the particles move towards the cursor, with the speed being higher closer to the cursor
+      //   this.y += directionY; // this will make the particles move towards the cursor, with the speed being higher closer to the cursor
+      this.x -= directionX; // this will make the particles move away the cursor, dynamically
+      this.y -= directionY; // this will make the particles move away the cursor, dynamically
     } else {
-      this.size = 3;
+      //   this.size = 3;
     }
   }
 }
