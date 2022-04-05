@@ -59,7 +59,7 @@ class Particle {
     let directionX = forceDirectionX * force * this.density;
     let directionY = forceDirectionY * force * this.density;
     if (distance < mouse.radius) {
-      //   this.size = 8; // this will increase the size of the particles near the cursor
+      this.size = 10; // this will increase the size of the particles near the cursor
       //   this.x += forceDirectionX * 3; // this will make the particles move towards the cursor
       //   this.y += forceDirectionY * 3; // this will make the particles move towards the cursor
       //   this.x += directionX; // this will make the particles move towards the cursor, with the speed being higher closer to the cursor
@@ -67,7 +67,7 @@ class Particle {
       this.x -= directionX; // this will make the particles move away the cursor, dynamically
       this.y -= directionY; // this will make the particles move away the cursor, dynamically
     } else {
-      //   this.size = 3;
+      this.size = 3;
       if (this.x !== this.baseX) {
         // this if statement checks if a position of a particle is the same as its starting position, baseX. If it isn't, it will move back towards its starting position.
         let dx = this.x - this.baseX;
