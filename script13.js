@@ -1,5 +1,5 @@
 // ----- MOLECULAR TEXT -----
-// Here we create attraction or repulsion on mousemove, and make the particles return to their original positions after they have moved. We use our 'textCoordinates' variable to draw particles according to image data instead of creating the particles spread out at random across the canvas (we do this inside our init() function).
+// Here we improve our molecular text.
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
