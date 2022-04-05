@@ -1,14 +1,14 @@
 // ---------- EFFECT 5 ----------
-// ----- PARTICLE TEXT -----
-// Here we create particles out of text
+// ----- PARTICLE MANIPULATION ON MOUSEMOVE -----
+// Here we create a bunch of particles on a canvas and manipulate them with our update() function's if statement. We're saying "if the particles are less than a certain distance from the mouse cursor, do something to the particles like change their size, and change it back when the cursor moves away again (although this is optional)"
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
 canvas.width = window.innerWidth;
-canvas.width = window.innerHeight;
+canvas.height = window.innerHeight;
 
 let particlesArray = [];
-const numberOfParticles = 2000;
+const numberOfParticles = 1000;
 
 // Handle mouse
 const mouse = {
@@ -48,6 +48,16 @@ class Particle {
     ctx.closePath();
     ctx.fill();
   }
+  update() {
+    let dx = mouse.x - this.x; // this calculates the distance between two points along the x-axis. mouse.x is where the cursor is, and this.x is a certain particle's position we want to calculate the distance to.
+    let dy = mouse.y - this.y;
+    let distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < 100) {
+      this.size = 8;
+    } else {
+      this.size = 3;
+    }
+  }
 }
 
 function init() {
@@ -65,6 +75,7 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < particlesArray.length; i++) {
     particlesArray[i].draw();
+    particlesArray[i].update();
   }
   requestAnimationFrame(animate);
 }
