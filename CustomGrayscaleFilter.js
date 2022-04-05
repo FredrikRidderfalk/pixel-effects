@@ -3,12 +3,11 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 450;
 
-// ---------- IMAGES ----------
+// ---------- IMAGE ----------
 
 const image1 = new Image();
 image1.src = "images/futureworks.png";
 
-// ---------- EFFECT 1 ----------
 // --- GRAYSCALE IMAGE FILTER ---
 
 // This event listener applies a grayscale filter to image1. It works just like JavaScript's filter method 'grayscale'.

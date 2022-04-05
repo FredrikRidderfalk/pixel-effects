@@ -1,7 +1,5 @@
-// ---------- EFFECT 4 ----------
-// ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
-// ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
-// Here we make colored pixel rain, and we can change the angle of it
+// ----- PARTICLE WATERFALL -----
+// Here we make monochrome pixel rain
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
@@ -10,7 +8,7 @@ myImage.src =
 
 // This event listener applies a snowy rain to myImage
 myImage.addEventListener("load", function () {
-  const canvas = document.querySelector("#canvas4"); // this is the element that houses our canvas
+  const canvas = document.querySelector("#canvas3"); // this is the element that houses our canvas
   const ctx = canvas.getContext("2d"); // this is our canvas
   canvas.width = 900; // this needs to match the width in the css
   canvas.height = 900; // this needs to match the height in the css
@@ -30,10 +28,7 @@ myImage.addEventListener("load", function () {
       const green = pixels.data[y * 4 * pixels.width + x * 4 + 1];
       const blue = pixels.data[y * 4 * pixels.width + x * 4 + 2];
       const brightness = calculateRelativeBrightness(red, green, blue);
-      const cell = [
-        (cellBrightness = brightness),
-        (cellColor = "rgb(" + red + "," + green + "," + blue + ")"),
-      ]; // each cell holds relative brightness value for individual pixels in the image. The cellColor can be used in the draw() function for ctx.fillStyle
+      const cell = [(cellBrightness = brightness)]; // each cell holds relative brightness value for individual pixels in the image
       row.push(cell); // each cell array represents one pixel in the image
     }
     mappedImage.push(row);
@@ -65,21 +60,15 @@ myImage.addEventListener("load", function () {
       let movement = 2.55 - this.speed + this.velocity; // relative brightness is a number between 0 and 2.55. We want the dark particles with a value close to 0 move really fast, we take the maximum value of 2.55 and subtract this.speed. We also don't want particles with the same color to move exactly the same speed, so we randomize it somewhat by adding this.velocity.
 
       //   this.y += this.velocity; // this creates snow/rain particles that doesn't interact with each other
-      this.y += movement / 3; // we need to set the velocity to a value between 0 and 0.5 for this to have a significant effect. This creates a particle waterfall effect where the particles move slower over bright surfaces. Divide or multiply with values to change direction of the flow.
-      this.x += movement; // this allows the particles to move along the x-axis as well. Divide or multiply with values to change direction of the flow.
+      this.y += movement; // we need to set the velocity to something like 0.5 for this to have a noticeable effect. This creates a particle waterfall effect where the particles move slower over bright surfaces
       if (this.y >= canvas.height) {
         this.y = 0;
         this.x = Math.random() * canvas.width;
       }
-      if (this.x >= canvas.width) {
-        this.x = 0;
-        this.y = Math.random() * canvas.height;
-      }
     }
     draw() {
       ctx.beginPath();
-      //   ctx.fillStyle = "white";
-      ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color. Comment out and use "white" instead if desiring grayscale
+      ctx.fillStyle = "white";
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -98,7 +87,7 @@ myImage.addEventListener("load", function () {
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.globalAlpha = 1; // if we add this here with a new value, we change the fade-in trails after the image has been drawn
+    ctx.globalAlpha = 0.2; // if we add this here with a new value, we change the fade-in trails after the image has been drawn
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
       ctx.globalAlpha = particlesArray[i].speed * 0.5; // Change the value 0.5 to change the speed. Comment this out to maintain a more consistent waterfall effect over the whole image

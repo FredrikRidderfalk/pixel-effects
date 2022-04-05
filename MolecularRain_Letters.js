@@ -1,6 +1,5 @@
-// ---------- EFFECT 5 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
-// ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
+// ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, AND GRADIENTS -----
 // Here we create fillText to draw particles using strings (letters/words). We may want to alter the number of particles here, as well as the opacity of the particles. We can set globalAlpha to 1 to do this. If we make an array with letters rather than hardcoding letters/strings, we have different particles displaying as different characters. We can also set the font-size of the characters and the font family with ctx.font in the draw() function.
 
 const myImage = new Image();

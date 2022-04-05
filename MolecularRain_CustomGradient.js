@@ -1,7 +1,7 @@
 // ---------- EFFECT 5 ----------
 // ----- PARTICLES FEATURING COLORS, DIFFERENT MOVE PATTERNS AND SHAPES -----
-// ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, GRADIENTS, AND A FIRE EFFECT -----
-// Here we create strokeStyle and use it to draw rectangles instead of circles
+// ----- WE EXPERIMENT WITH FILTERS, BLEND MODES, AND GRADIENTS -----
+// Here we create our own color spectrum, gradient1, and use it for our fillStyle. Edit: We added gradient2 as well.
 
 const myImage = new Image();
 // myImage.src = "images/bread.png";
@@ -24,6 +24,10 @@ myImage.addEventListener("load", function () {
   gradient1.addColorStop(0.6, "green");
   gradient1.addColorStop(0.7, "turquoise");
   gradient1.addColorStop(0.8, "violet");
+
+  const gradient2 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); // change these coordinates to change the angle of the spectrum (i.e. (0, 0, 0, canvas.height))
+  gradient2.addColorStop(0.2, "turquoise");
+  gradient2.addColorStop(0.8, "violet");
 
   ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height); // Here, on the first page load, we draw the image on our canvas using the built-in HTML canvas drawImage method
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height); // Here we call getImageData on it (ctx, which is the canvas) to get information about all its pixels, and we save it to our custom pixels variable
@@ -98,17 +102,15 @@ myImage.addEventListener("load", function () {
     draw() {
       ctx.beginPath();
       //   ctx.fillStyle = "white";
-      //   ctx.fillStyle = gradient1;
-      if (
-        mappedImage[this.position1] &&
-        mappedImage[this.position1][this.position2]
-      ) {
-        ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
-        ctx.strokeStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
-      } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
-      //   ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.strokeRect(this.x, this.y, this.size * 5, this.size * 5); // with this we draw in rectangles instead. We need to set strokeStyle above. Multiply this.size with a value to set the size of the rectangles
-      //   ctx.fillText("Draw", this.x, this.y); // draw in letters/words instead
+      ctx.fillStyle = gradient2;
+      //   ctx.fillStyle = gradient2;
+      //   if (
+      //     mappedImage[this.position1] &&
+      //     mappedImage[this.position1][this.position2]
+      //   ) {
+      //     ctx.fillStyle = mappedImage[this.position1][this.position2][1]; // in the very end we chose index position 1 instead of 0 since cellColor is the second item in the cell array. This makes us draw in color.
+      //   } // This if statement makes sure that we only assign a change the color of a particle if that particle is within the canvas area
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
     }
   }
@@ -129,7 +131,6 @@ myImage.addEventListener("load", function () {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.globalAlpha = 0.2; // if we add this here with a new value, we change the fade-in trails after the image has been drawn
-
     for (let i = 0; i < particlesArray.length; i++) {
       particlesArray[i].update();
       ctx.globalAlpha = particlesArray[i].speed * 0.5; // Change the value 0.5 to change the speed. Comment this out to maintain a more consistent waterfall effect over the whole image
