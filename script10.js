@@ -1,5 +1,5 @@
 // ----- PARTICLE TRANSLATE ON MOUSEMOVE -----
-// Here we create a bunch of particles on a canvas and make them move away from the cursor when the cursor gets close.
+// Here we create a bunch of particles on a canvas and make them move towards or away from the cursor when the cursor gets close. Attraction or repulsion on mousemove
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
@@ -20,7 +20,6 @@ const mouse = {
 window.addEventListener("mousemove", function (event) {
   mouse.x = event.x;
   mouse.y = event.y;
-  mouse.radius = 150; // it will be set equal to the radius inside the mouse object
 });
 
 ctx.fillStyle = "purple";
