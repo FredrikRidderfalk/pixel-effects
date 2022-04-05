@@ -1,6 +1,5 @@
-// ---------- EFFECT 5 ----------
-// ----- PARTICLE MANIPULATION ON MOUSEMOVE -----
-// Here we create a bunch of particles on a canvas and manipulate them with our update() function's if statement. We're saying "if the particles are less than a certain distance from the mouse cursor, do something to the particles like change their size, and change it back when the cursor moves away again (although this is optional)"
+// ----- PARTICLE TRANSLATE ON MOUSEMOVE -----
+// Here we create a bunch of particles on a canvas and make them move away from the cursor when the cursor gets close.
 
 const canvas = document.querySelector("#canvasText"); // this is the element that houses our canvas
 const ctx = canvas.getContext("2d"); // this is our canvas
