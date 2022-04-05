@@ -41,11 +41,9 @@ class Particle {
     this.density = Math.random() * 30 + 1; // the random function will cause particles to move at different speeds
   }
   draw() {
-    //   this is how we draw a circle on the canvas
-    ctx.fillStyle = "#007";
-    ctx.beginPath(); // analogous to putting the pencil on the canvas before starting to draw
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.closePath();
+    ctx.strokeStyle = "#007";
+    ctx.strokeRect(this.x, this.y, this.size * 4, this.size * 4); // with this we draw in rectangles instead. We need to set strokeStyle above. Multiply this.size with a value to set the size of the rectangles
+    //   ctx.fillText("Draw", this.x, this.y); // draw in letters/words instead
     ctx.fill();
   }
   update() {
