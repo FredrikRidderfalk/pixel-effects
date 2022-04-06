@@ -54,7 +54,7 @@ class Particle {
     ctx.beginPath(); // analogous to putting the pencil on the canvas before starting to draw
 
     if (this.distance < mouse.radius - 5) {
-      this.size = 13;
+      this.size = Math.floor(Math.random() * 6);
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); // Shapes particles as circles
       ctx.stroke();
     } else if (this.distance <= mouse.radius) {
