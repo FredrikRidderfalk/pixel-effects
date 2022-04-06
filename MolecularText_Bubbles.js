@@ -28,7 +28,7 @@ window.addEventListener("mousemove", function (event) {
 });
 
 // ------ TEXT ------
-ctx.fillStyle = "#007";
+// ctx.fillStyle = "#007";
 ctx.font = "40px Helvetica";
 ctx.fillText("Habibi", 0, 30); // Text and x y coordinates for where the text starts
 

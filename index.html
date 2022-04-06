@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Effects</title>
+    <title>Molecular Typography</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="icon"
@@ -32,12 +32,30 @@
     <!-- Molecular text -->
     <!-- <script src="MolecularText_Dots.js" defer></script> -->
     <!-- <script src="MolecularText_Monochrome.js" defer></script> -->
-    <script src="MolecularText_Bubbles.js" defer></script>
+    <!-- <script src="MolecularText_Images.js" defer></script> -->
+    <script src="MolecularText_Images.js" defer></script>
   </head>
   <body>
+    <!-- The svg element creates a goo effect -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+            result="goo"
+          />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
+
     <div class="container__transparent-box"></div>
     <div class="transparent-box"></div>
-    <!-- <canvas id="canvas2"></canvas> -->
+
+    <!-- <canvas id="canvasMolecularZeroG"></canvas> -->
     <canvas id="canvasMolecularText"></canvas>
   </body>
 </html>

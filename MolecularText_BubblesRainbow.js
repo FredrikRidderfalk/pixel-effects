@@ -14,11 +14,15 @@ let adjustX = 15; // use this to move the text around
 let adjustY = 24; // use this to move the text around
 ctx.lineWidth = 3;
 
-// ------ IMAGE SETUP ------
-const img = new Image();
-img.src = "images/apple.png";
-const imgWidth = 256;
-const imgHeight = 256;
+// ------ CUSTOM COLOR SPECTRUM ------
+const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); // change these coordinates to change the angle of the spectrum (i.e. (0, 0, 0, canvas.height))
+gradient1.addColorStop(0.2, "pink");
+gradient1.addColorStop(0.3, "red");
+gradient1.addColorStop(0.4, "orange");
+gradient1.addColorStop(0.5, "yellow");
+gradient1.addColorStop(0.6, "green");
+gradient1.addColorStop(0.7, "turquoise");
+gradient1.addColorStop(0.8, "violet");
 
 // ------ HANDLE MOUSE ------
 const mouse = {
@@ -55,13 +59,36 @@ class Particle {
   }
   draw() {
     // --- DRAWING ---
+    ctx.fillStyle = "rgba(255, 255, 255, 0.8)"; // Reflection patches on each bubble
+    ctx.strokeStyle = gradient1; // Bubbles
+    ctx.beginPath();
+
     if (this.distance < mouse.radius - 5) {
-      ctx.drawImage(img, 0, 0, imgWidth, imgHeight, this.x, this.y, 22, 22);
+      this.size = 7;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(this.x - 3, this.y - 3, this.size / 2.5, 0, Math.PI * 2);
+      ctx.arc(this.x + 3, this.y - 1, this.size / 3.5, 0, Math.PI * 2);
     } else if (this.distance <= mouse.radius) {
-      ctx.drawImage(img, 0, 0, imgWidth, imgHeight, this.x, this.y, 16, 16);
+      this.size = 6;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(this.x - 1, this.y - 1, this.size / 3, 0, Math.PI * 2);
     } else {
-      ctx.drawImage(img, 0, 0, imgWidth, imgHeight, this.x, this.y, 12, 12);
+      this.size = 3;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(this.x - 1, this.y - 1, this.size / 3, 0, Math.PI * 2);
     }
+
+    ctx.closePath();
+    ctx.fill();
   }
   update() {
     // --- CALCULATIONS ---
