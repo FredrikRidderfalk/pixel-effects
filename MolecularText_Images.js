@@ -16,9 +16,9 @@ ctx.lineWidth = 3;
 
 // ------ IMAGE SETUP ------
 const img = new Image();
-img.src = "images/apple.png";
-const imgWidth = 256;
-const imgHeight = 256;
+img.src = "images/cube.png";
+const imgWidth = 512;
+const imgHeight = 512;
 
 // ------ HANDLE MOUSE ------
 const mouse = {
