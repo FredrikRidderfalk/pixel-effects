@@ -76,7 +76,7 @@ function drawImage() {
         }
         if (this.y !== this.baseY) {
           // Retraction effect
-          let dy = this.y - canvas.height;
+          let dy = this.y - canvas.height; // subtracting with canvas.height here knocks the pixels down to the "ground"
           this.y -= dy / 20; // Retraction speed
           this.size = Math.random() * 2;
         }

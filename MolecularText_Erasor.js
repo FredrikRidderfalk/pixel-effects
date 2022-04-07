@@ -14,22 +14,12 @@ let adjustX = 15; // use this to move the text around
 let adjustY = 24; // use this to move the text around
 ctx.lineWidth = 3;
 
-// ------ CUSTOM COLOR SPECTRUM ------
-const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); // change these coordinates to change the angle of the spectrum (i.e. (0, 0, 0, canvas.height))
-gradient1.addColorStop(0.2, "pink");
-gradient1.addColorStop(0.3, "red");
-gradient1.addColorStop(0.4, "orange");
-gradient1.addColorStop(0.5, "yellow");
-gradient1.addColorStop(0.6, "green");
-gradient1.addColorStop(0.7, "turquoise");
-gradient1.addColorStop(0.8, "violet");
-
 // ------ HANDLE MOUSE ------
 const mouse = {
   // we need this object to make our mouse cursor coordinates available all over our application, since event.x and event.y will only be available inside an eventListener.
   x: undefined,
   y: undefined,
-  radius: 150, // Radius for interaction zone surrounding the mouse cursor
+  radius: 42, // Radius for interaction zone surrounding the mouse cursor
 };
 
 window.addEventListener("mousemove", function (event) {
@@ -38,7 +28,7 @@ window.addEventListener("mousemove", function (event) {
 });
 
 // ------ TEXT ------
-ctx.fillStyle = "#007";
+// ctx.fillStyle = "#007";
 ctx.font = "40px Helvetica";
 ctx.fillText("Habibi", 0, 30); // Text and x y coordinates for where the text starts
 
@@ -58,32 +48,16 @@ class Particle {
     this.distance;
   }
   draw() {
+    // Custom gradient
+    let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, "green");
+    gradient.addColorStop(0.5, "cyan");
+    gradient.addColorStop(1, "orange");
+
     // --- DRAWING ---
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)"; // Reflection patches on each bubble
-    ctx.strokeStyle = gradient1; // Bubbles
-    ctx.beginPath();
-
-    if (this.distance < mouse.radius - 5) {
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(this.x - 3, this.y - 3, this.size / 2.5, 0, Math.PI * 2);
-      ctx.arc(this.x + 3, this.y - 1, this.size / 3.5, 0, Math.PI * 2);
-    } else if (this.distance <= mouse.radius) {
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(this.x - 1, this.y - 1, this.size / 3, 0, Math.PI * 2);
-    } else {
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(this.x - 1, this.y - 1, this.size / 3, 0, Math.PI * 2);
-    }
-
+    ctx.fillStyle = gradient;
+    ctx.beginPath(); // analogous to putting the pencil on the canvas before starting to draw
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.closePath();
     ctx.fill();
   }
@@ -101,23 +75,22 @@ class Particle {
     let directionY = forceDirectionY * force * this.density;
 
     // --- EFFECTS ---
-    if (distance < mouse.radius - 5) {
-      this.size = 7;
-      this.x -= directionX; // Repulsion effect
-      this.y -= directionY; // Repulsion effect
-    } else if (distance < mouse.radius) {
-      this.size = 6;
+    if (distance < mouse.radius) {
+      this.x -= directionX * mouse.radius; // Repulsion effect
+      this.y -= directionY * mouse.radius; // Repulsion effect
+      this.size = 2;
     } else {
-      this.size = 3; // Size reset effect
       if (this.x !== this.baseX) {
         // Retraction effect
         let dx = this.x - this.baseX;
-        this.x -= dx / 10; // Retraction speed
+        this.x -= dx / 20; // Retraction speed
+        this.size = Math.random() * 2;
       }
       if (this.y !== this.baseY) {
         // Retraction effect
-        let dy = this.y - this.baseY;
-        this.y -= dy / 10; // Retraction speed
+        let dy = this.y - canvas.height; // subtracting with canvas.height here knocks the pixels down to the "ground"
+        this.y -= dy / 20; // Retraction speed
+        this.size = Math.random() * 2;
       }
     }
   }

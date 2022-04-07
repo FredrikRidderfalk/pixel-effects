@@ -111,7 +111,7 @@ function animate() {
     particlesArray[i].draw();
     particlesArray[i].update();
   }
-  connect();
+  // connect();
   requestAnimationFrame(animate);
 }
 animate();

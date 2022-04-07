@@ -29,7 +29,7 @@ const mouse = {
   // we need this object to make our mouse cursor coordinates available all over our application, since event.x and event.y will only be available inside an eventListener.
   x: undefined,
   y: undefined,
-  radius: 150, // Radius for interaction zone surrounding the mouse cursor
+  radius: 42, // Radius for interaction zone surrounding the mouse cursor
 };
 
 window.addEventListener("mousemove", function (event) {
@@ -113,11 +113,13 @@ class Particle {
         // Retraction effect
         let dx = this.x - this.baseX;
         this.x -= dx / 10; // Retraction speed
+        this.size = 0;
       }
       if (this.y !== this.baseY) {
         // Retraction effect
-        let dy = this.y - this.baseY;
+        let dy = this.y - canvas.height;
         this.y -= dy / 10; // Retraction speed
+        this.size = 0;
       }
     }
   }
