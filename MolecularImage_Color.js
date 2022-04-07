@@ -10,6 +10,8 @@ canvas.height = window.innerHeight;
 document.querySelector("body").style.backgroundColor = "#000";
 
 let particlesArray = [];
+let adjustX = 30; // use this to move the text around
+let adjustY = 15; // use this to move the text around
 
 // ------ HANDLE MOUSE ------
 const mouse = {
@@ -30,12 +32,12 @@ function drawImage() {
 
   class Particle {
     constructor(x, y, color) {
-      this.x = x + canvas.width / 2 - png.width * 2;
-      this.y = y + canvas.height / 2 - png.height * 2;
+      this.x = x;
+      this.y = y;
       this.color = color;
       this.size = 2;
-      this.baseX = x + canvas.width / 2 - png.width * 2;
-      this.baseY = y + canvas.height / 2 - png.height * 2;
+      this.baseX = this.x;
+      this.baseY = this.y;
       this.density = Math.random() * 10 + 2;
     }
     draw() {
@@ -64,11 +66,13 @@ function drawImage() {
       if (distance < mouse.radius + this.size) {
         this.x -= directionX; // Repulsion effect
         this.y -= directionY; // Repulsion effect
+        this.size = 1;
       } else {
         if (this.x !== this.baseX) {
           // Retraction effect
           let dx = this.x - this.baseX;
           this.x -= dx / 20; // Retraction speed
+          this.size = 2;
         }
         if (this.y !== this.baseY) {
           // Retraction effect
@@ -87,13 +91,13 @@ function drawImage() {
     for (let y = 0; y < data.height; y++) {
       for (let x = 0; x < data.width; x++) {
         if (data.data[y * 4 * data.width + x * 4 + 3] > 128) {
-          let positionX = x; // positionX represents our pixels in rows that passed the opacity check
-          let positionY = y; // positionY represents our pixels in columns that passed the opacity check
+          let positionX = x + adjustX; // positionX represents our pixels in rows that passed the opacity check
+          let positionY = y + adjustY; // positionY represents our pixels in columns that passed the opacity check
           let color = `rgb(${data.data[y * 4 * data.width + x * 4]}, ${
             data.data[y * 4 * data.width + x * 4 + 1]
           }, ${data.data[y * 4 * data.width + x * 4 + 2]})`;
           particlesArray.push(
-            new Particle(positionX * 4, positionY * 4, color)
+            new Particle(positionX * 6, positionY * 6, color)
           );
         }
       }
