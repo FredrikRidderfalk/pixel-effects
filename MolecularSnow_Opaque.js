@@ -8,7 +8,7 @@ image2.src =
 
 // This event listener applies a snowy rain to image2
 image2.addEventListener("load", function () {
-  const canvas = document.querySelector("#canvas2");
+  const canvas = document.querySelector("#canvasMolecularSnow");
   const ctx = canvas.getContext("2d");
   canvas.width = 680;
   canvas.height = 661;

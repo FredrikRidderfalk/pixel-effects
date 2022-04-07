@@ -8,10 +8,10 @@ myImage.src =
 
 // This event listener applies a snowy rain to myImage
 myImage.addEventListener("load", function () {
-  const canvas = document.querySelector("#canvas3"); // this is the element that houses our canvas
+  const canvas = document.querySelector("#canvasMonochromeRain"); // this is the element that houses our canvas
   const ctx = canvas.getContext("2d"); // this is our canvas
-  canvas.width = 900; // this needs to match the width in the css
-  canvas.height = 900; // this needs to match the height in the css
+  canvas.width = 1400; // this needs to match the width in the css
+  canvas.height = 1400; // this needs to match the height in the css
 
   ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height); // Here, on the first page load, we draw the image on our canvas using the built-in HTML canvas drawImage method
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height); // Here we call getImageData on it (ctx, which is the canvas) to get information about all its pixels, and we save it to our custom pixels variable
@@ -46,7 +46,7 @@ myImage.addEventListener("load", function () {
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
-      this.y = 0;
+      this.y = Math.random() * canvas.height;
       this.speed = 0;
       this.velocity = Math.random() * 0.5;
       this.size = Math.random() * 1.5 + 0.5;

@@ -3,11 +3,11 @@
 // Here we create fillText to draw particles using strings (letters/words). We may want to alter the number of particles here, as well as the opacity of the particles. We can set globalAlpha to 1 to do this. If we make an array with letters rather than hardcoding letters/strings, we have different particles displaying as different characters. We can also set the font-size of the characters and the font family with ctx.font in the draw() function.
 
 const myImage = new Image();
-myImage.src = "images/jinx.jpg"; // if the image doesn't load, add the image in base64 format here instead
+myImage.src = "images/jinx2.jpg"; // if the image doesn't load, add the image in base64 format here instead
 
 // This event listener applies a snowy rain to myImage
 myImage.addEventListener("load", function () {
-  const canvas = document.querySelector("#canvas6"); // this is the element that houses our canvas
+  const canvas = document.querySelector("#canvasMolecularRain"); // this is the element that houses our canvas
   const ctx = canvas.getContext("2d"); // this is our canvas
   canvas.width = 1280; // this needs to match the width in the css
   canvas.height = 720; // this needs to match the height in the css
