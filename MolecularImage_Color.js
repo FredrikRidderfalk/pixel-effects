@@ -7,7 +7,7 @@ const ctx = canvas.getContext("2d"); // Our canvas that contains a myriad of bui
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// document.querySelector("body").style.backgroundColor = "#00162f";
+document.querySelector("body").style.backgroundColor = "#000";
 
 let particlesArray = [];
 
@@ -25,14 +25,11 @@ window.addEventListener("mousemove", function (event) {
 });
 
 function drawImage() {
-  let imageWidth = png.width;
-  let imageHeight = png.height;
-  const data = ctx.getImageData(0, 0, imageWidth, imageHeight);
+  const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   class Particle {
-    constructor(x, y, color, size) {
-      // All other arguments except x and y will be calculated here in the constructor, so no need to pass them as arguments
+    constructor(x, y, color) {
       this.x = x + canvas.width / 2 - png.width * 2;
       this.y = y + canvas.height / 2 - png.height * 2;
       this.color = color;
@@ -49,7 +46,6 @@ function drawImage() {
     }
     update() {
       // This is where we calculate particle movement and cursor interactions
-
       ctx.fillStyle = this.color;
 
       // Collision detection
@@ -126,7 +122,7 @@ function drawImage() {
 }
 
 const png = new Image();
-png.src = "images/apple.png";
+png.src = "images/woman.jpg";
 
 window.addEventListener("load", (event) => {
   ctx.drawImage(png, 0, 0);
