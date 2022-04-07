@@ -102,6 +102,16 @@ h1 {
     /* opacity: 0.2; */
 }
 
+#canvasMolecularZeroGParticles {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle, rgba(159,255,255,1) 0%, rgba(255,220,246,1) 100%);
+    /* opacity: 0.2; */
+}
+
 #canvasMolecularZeroGGoo {
     width: 100%;
     height: 100%;
