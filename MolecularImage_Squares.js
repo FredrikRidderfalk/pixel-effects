@@ -126,7 +126,7 @@ function drawImage() {
 }
 
 const png = new Image();
-png.src = "images/woman.jpg";
+png.src = "images/deadnote-bw.png";
 
 window.addEventListener("load", (event) => {
   ctx.drawImage(png, 0, 0);
